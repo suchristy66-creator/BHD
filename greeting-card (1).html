@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>給意迦</title>
+  <meta name="description" content="給意迦">
+  <meta property="og:title" content="給意迦">
+  <meta property="og:description" content="給意迦">
+  <meta name="twitter:title" content="給意迦">
+  <meta name="twitter:description" content="給意迦">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300&family=Noto+Sans+TC:wght@100;200;300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #ddd5c8;
+      --paper:     #ede5d8;
+      --ink:       #0f0d0b;
+      --ink-mid:   #2a2420;
+      --ink-light: #4a3f36;
+      --line:      #7a6a5a;
+      --accent:    #7a6a52;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='6' height='6' fill='%23ddd5c8'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23ccc4b6' opacity='0.45'/%3E%3C/svg%3E");
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Serif TC', serif;
+      padding: 48px 20px;
+    }
+
+    .card {
+      width: 560px;
+      min-height: 800px;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      padding: 68px 60px 56px 68px;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.07), 0 10px 40px rgba(50,38,24,0.14);
+      opacity: 0;
+      transform: translateY(16px);
+      animation: appear 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+    }
+
+    @keyframes appear { to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn  { to { opacity:1; } }
+
+    /* 左側色條 */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: var(--accent);
+    }
+
+    /* 右下角框線 */
+    .card::after {
+      content: '';
+      position: absolute;
+      right: -8px; bottom: -8px;
+      width: 160px; height: 160px;
+      border: 1px solid var(--line);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* 頂標 */
+    .card-label {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 100;
+      font-size: 9.5px;
+      letter-spacing: 0.42em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.4s forwards;
+    }
+
+    /* 插圖 */
+    .illustration {
+      width: 100%;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1.6s ease 0.6s forwards;
+    }
+
+    /* 分隔符 */
+    .divider-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 34px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1s forwards;
+    }
+    .d-line       { height: 1px; background: var(--accent); }
+    .d-line.long  { width: 40px; }
+    .d-line.short { width: 12px; }
+    .d-dot        { width: 3px; height: 3px; border-radius: 50%; background: var(--accent); }
+
+    /* 稱謂 */
+    .headline {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 200;
+      font-size: 13px;
+      letter-spacing: 0.38em;
+      color: var(--ink-mid);
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.1s forwards;
+    }
+
+    /* 名字 */
+    .name-line {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 300;
+      font-size: 38px;
+      letter-spacing: 0.22em;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.2s forwards;
+    }
+    .name-line small {
+      font-weight: 200;
+      font-size: 18px;
+      color: var(--ink-mid);
+      letter-spacing: 0.18em;
+    }
+
+    /* 年齡 */
+    .age-badge {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.3s forwards;
+    }
+    .age-badge .num {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 200;
+      font-size: 52px;
+      color: #8B0000;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .age-badge .unit {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 100;
+      font-size: 12px;
+      letter-spacing: 0.32em;
+      color: var(--ink-light);
+    }
+
+    /* 細線 */
+    .thin-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin-bottom: 34px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.35s forwards;
+    }
+
+    /* 祝福清單 */
+    .wishes {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.45s forwards;
+    }
+    .wish-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(196,184,168,0.45);
+    }
+    .wish-item:first-child { border-top: 1px solid rgba(196,184,168,0.45); }
+    .wish-num {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 100;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--ink-light);
+      min-width: 22px;
+    }
+    .wish-text {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 200;
+      font-size: 15.5px;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    /* 落款 */
+    .signature-area {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.6s forwards;
+    }
+    .sig-block { text-align: right; }
+    .sig-from {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 100;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: var(--ink-light);
+      margin-bottom: 10px;
+    }
+    .sig-line {
+      width: 72px;
+      height: 1px;
+      background: var(--accent);
+      margin-left: auto;
+    }
+
+    /* 底部印記 */
+    .card-stamp {
+      position: absolute;
+      bottom: 20px;
+      left: 68px;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 100;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--line);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="card-label">birthday &nbsp;·&nbsp; 生日快樂 &nbsp;·&nbsp; 2026</div>
+
+  <!-- 桔梗插畫 -->
+  <div class="illustration">
+    <svg width="340" height="150" viewBox="0 0 340 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ── 左邊桔梗（全開）── -->
+      <!-- 莖 -->
+      <path d="M82 148 C82 122 83 105 84 82" stroke="#9c8e80" stroke-width="0.9" fill="none"/>
+      <!-- 葉子左 -->
+      <path d="M83 110 C70 104 60 94 56 82 C68 88 78 100 83 110Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <!-- 葉子右 -->
+      <path d="M84 98 C96 92 104 82 106 70 C95 76 86 88 84 98Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <!-- 花萼 -->
+      <path d="M80 82 C82 76 86 76 88 82" stroke="#9c8e80" stroke-width="0.7" fill="none"/>
+      <!-- 花瓣5片（全開桔梗）-->
+      <path d="M84 78 C76 66 70 54 72 42 C80 52 84 66 84 78Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.7"/>
+      <path d="M84 78 C92 64 102 55 114 52 C104 62 94 70 84 78Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.7"/>
+      <path d="M84 78 C96 70 110 68 120 62 C108 68 96 74 84 78Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.65"/>
+      <path d="M84 78 C72 72 58 72 50 66 C62 70 74 74 84 78Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.65"/>
+      <path d="M84 78 C78 64 76 50 80 38 C84 50 84 64 84 78Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.6"/>
+      <!-- 花心雄蕊 -->
+      <circle cx="84" cy="74" r="5" stroke="#b5a898" stroke-width="0.7" fill="#ede5d8"/>
+      <circle cx="84" cy="74" r="2" fill="#c4b8a8" fill-opacity="0.6"/>
+      <!-- 花心細線 -->
+      <line x1="84" y1="69" x2="84" y2="66" stroke="#b5a898" stroke-width="0.6"/>
+      <line x1="88" y1="71" x2="91" y2="69" stroke="#b5a898" stroke-width="0.6"/>
+      <line x1="80" y1="71" x2="77" y2="69" stroke="#b5a898" stroke-width="0.6"/>
+      <circle cx="84" cy="65" r="1" fill="#b5a898"/>
+      <circle cx="92" cy="68" r="1" fill="#b5a898"/>
+      <circle cx="76" cy="68" r="1" fill="#b5a898"/>
+
+      <!-- ── 中間桔梗（花苞半開）── -->
+      <path d="M170 148 C170 118 170 98 170 68" stroke="#9c8e80" stroke-width="0.9" fill="none"/>
+      <!-- 葉 -->
+      <path d="M170 115 C158 108 150 96 148 84 C158 90 166 102 170 115Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <path d="M170 100 C182 94 190 84 190 72 C180 78 172 90 170 100Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <!-- 花萼 -->
+      <path d="M165 68 C167 60 173 60 175 68" stroke="#9c8e80" stroke-width="0.7" fill="none"/>
+      <!-- 半開花苞 -->
+      <path d="M170 65 C162 54 160 40 164 28 C170 40 172 54 170 65Z" stroke="#9c8e80" stroke-width="0.85" fill="#e8dfd0" fill-opacity="0.75"/>
+      <path d="M170 65 C178 54 180 40 176 28 C170 40 168 54 170 65Z" stroke="#9c8e80" stroke-width="0.85" fill="#e8dfd0" fill-opacity="0.75"/>
+      <path d="M170 65 C158 58 152 46 154 34 C162 44 168 56 170 65Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.6"/>
+      <path d="M170 65 C182 58 188 46 186 34 C178 44 172 56 170 65Z" stroke="#9c8e80" stroke-width="0.8" fill="#e8dfd0" fill-opacity="0.6"/>
+      <!-- 花心 -->
+      <circle cx="170" cy="62" r="4" stroke="#b5a898" stroke-width="0.7" fill="#ede5d8"/>
+
+      <!-- ── 右邊桔梗（側面含苞）── -->
+      <path d="M268 148 C267 122 265 104 263 78" stroke="#9c8e80" stroke-width="0.9" fill="none"/>
+      <!-- 葉 -->
+      <path d="M265 112 C254 106 246 94 244 82 C254 88 262 100 265 112Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <path d="M264 96 C276 90 284 80 283 68 C273 74 265 86 264 96Z" stroke="#9c8e80" stroke-width="0.7" fill="#d4c9b5" fill-opacity="0.5"/>
+      <!-- 花萼（側面） -->
+      <path d="M260 78 C262 70 268 68 272 74" stroke="#9c8e80" stroke-width="0.7" fill="none"/>
+      <!-- 含苞（細長） -->
+      <path d="M263 75 C256 62 256 46 260 34 C266 46 268 62 263 75Z" stroke="#9c8e80" stroke-width="0.85" fill="#e8dfd0" fill-opacity="0.75"/>
+      <path d="M263 75 C270 62 272 46 268 34 C264 46 262 62 263 75Z" stroke="#9c8e80" stroke-width="0.85" fill="#e8dfd0" fill-opacity="0.7"/>
+      <ellipse cx="263" cy="34" rx="5" ry="4" stroke="#9c8e80" stroke-width="0.7" fill="#ede5d8"/>
+
+      <!-- 葉片細莖連接 -->
+      <path d="M120 148 C118 128 116 112 113 94" stroke="#b5a898" stroke-width="0.55" fill="none"/>
+      <path d="M113 94 C106 82 94 76 80 72" stroke="#b5a898" stroke-width="0.5" fill="none"/>
+      <path d="M220 148 C222 128 224 112 227 94" stroke="#b5a898" stroke-width="0.55" fill="none"/>
+
+      <!-- 散落小點 -->
+      <circle cx="32" cy="90" r="1.3" fill="#b5a898"/>
+      <circle cx="22" cy="76" r="0.9" fill="#c4b8a8"/>
+      <circle cx="308" cy="88" r="1.3" fill="#b5a898"/>
+      <circle cx="320" cy="74" r="0.9" fill="#c4b8a8"/>
+
+      <!-- 底線 -->
+      <line x1="30" y1="148" x2="310" y2="148" stroke="#c4b8a8" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <div class="divider-group">
+    <div class="d-line long"></div>
+    <div class="d-dot"></div>
+    <div class="d-line short"></div>
+  </div>
+
+  <div class="headline">親愛的</div>
+  <div class="name-line">意迦 &nbsp;<small>— Yica</small></div>
+
+  <div class="age-badge">
+    <span class="num">25</span>
+    <span class="unit">歲 &nbsp;·&nbsp; 生日快樂</span>
+  </div>
+
+  <div class="thin-rule"></div>
+
+  <div class="wishes">
+    <div class="wish-item">
+      <span class="wish-num">01</span>
+      <span class="wish-text">願你財源廣進，越賺越多</span>
+    </div>
+    <div class="wish-item">
+      <span class="wish-num">02</span>
+      <span class="wish-text">身體健康，每天都有好精神</span>
+    </div>
+    <div class="wish-item">
+      <span class="wish-num">03</span>
+      <span class="wish-text">越來越漂亮，美麗無上限</span>
+    </div>
+    <div class="wish-item">
+      <span class="wish-num">04</span>
+      <span class="wish-text">25 歲，是你最好的開始 ✦</span>
+    </div>
+  </div>
+
+  <div class="signature-area">
+    <div class="sig-block">
+      <div class="sig-from">with love &nbsp;·&nbsp; Christy</div>
+      <div class="sig-line"></div>
+    </div>
+  </div>
+
+  <div class="card-stamp">birthday card &nbsp;·&nbsp; No. 025</div>
+
+</div>
+
+</body>
+</html>
